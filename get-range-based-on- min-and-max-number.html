@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Get Range Based on Min and Max Number</title>
+</head>
+ <script>
+	function GetRange(minRange, maxRange, min, max){
+		var scales = [],                  // Prepare some variables
+		ranges = maxRange+1 - minRange,   // Amount of elements to be returned.
+		range  = (max-min)/ranges;        // Difference between min and max
+		for(var i = 0; i < ranges; i++){
+			scales.push({["Range"+[i+1]]:{				 
+				"Min Value": Math.round(min + range * i),
+				"Max Value": Math.round(min + range * (i+1))
+			}});
+		}
+		return scales;
+	}  
+	
+	var minmaxarray = [0,10,20,30,40,50,60,70,80,90,100,110,120];
+	
+	var getminval = Math.min(...minmaxarray);
+	var getmaxval = Math.max(...minmaxarray);
+	
+	function getrange(){
+		var len = parseInt(document.getElementById("getnum").value);
+		var getfinalmapdata = GetRange(1, len, getminval, getmaxval); 			 
+		document.getElementById("output").innerHTML = JSON.stringify(getfinalmapdata, null,' '); 
+	}
+	</script>
+
+	<body>
+		<h3>Array Elements:: </h3>[0,10,20,30,40,50,60,70,80,90,100,110,120]<br><br>
+		<h3>Range Length :: </h3><input type="number" id="getnum" value="3" />
+		<input type="button" value="Get Range" onclick="getrange()" />
+		<br><br>
+		<pre style="font-family: Courier;background: #f4f4f4;border: solid 1px #e1e1e1;float: left;width: auto;font-size:20px;color:#1E1EEF;font-weight:bold">
+		<div id="output"></div>
+		</pre>
+	</body>
+</html>			
